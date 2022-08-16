@@ -386,7 +386,6 @@ media/
 app/*/migrations
 
 .dockerignore
-.env
 
 .vscode/
 logs/

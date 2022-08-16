@@ -36,3 +36,18 @@ def test_jobpost_update_success(client, sample_jobpost):
     }
     response = client.patch(data=data, path=url, content_type="application/json")
     assert response.status_code == 200
+
+
+def test_jobpost_update_fail_when_fix_company_id(client, sample_jobpost):
+    """
+    채용공고 수정 테스트 - 실패 (채용공고의 회사 ID를 변경할 수 없음)
+    """
+    url = reverse("apis:jobpost_update", kwargs={"pk": sample_jobpost.id})
+    data = {
+        "title": "프론트 엔지니어 채용공고",
+        "content": "프론트 엔지니어 채용합니다",
+        "position": "프론트 엔지니어",
+        "company": 2,
+    }
+    response = client.patch(data=data, path=url, content_type="application/json")
+    assert response.status_code == 400

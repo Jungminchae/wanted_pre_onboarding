@@ -12,6 +12,7 @@ def test_user_model_success():
     user = User.objects.create(
         name='test123',
         email="test123@example.com"
+        is_company=True,
     )
     assert user.name == 'test123'
     assert user.email == "test123@example.com"

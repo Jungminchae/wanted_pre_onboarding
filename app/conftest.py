@@ -13,6 +13,15 @@ def sample_user():
 
 
 @pytest.fixture
+def sample_company_user():
+    return User.objects.create(
+        name="test1234",
+        email="test1234@example.com",
+        is_company=True,
+    )
+
+
+@pytest.fixture
 def sample_company():
     return Company.objects.create(name="원티드", country="한국", region="서울")
 

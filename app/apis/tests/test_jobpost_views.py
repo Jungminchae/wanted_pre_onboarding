@@ -5,6 +5,9 @@ pytestmark = pytest.mark.django_db
 
 
 def test_jobpost_registration_success(client, sample_company_user, sample_company):
+    """
+    채용공고 등록 테스트 - 성공
+    """
     url = reverse("apis:jobpost_registration")
     user_id = sample_company_user.id
     company_id = sample_company.id
@@ -19,3 +22,17 @@ def test_jobpost_registration_success(client, sample_company_user, sample_compan
     }
     response = client.post(data=data, path=url)
     assert response.status_code == 201
+
+
+def test_jobpost_update_success(client, sample_jobpost):
+    """
+    채용공고 수정 테스트 - 성공
+    """
+    url = reverse("apis:jobpost_update", kwargs={"pk": sample_jobpost.id})
+    data = {
+        "title": "프론트 엔지니어 채용공고",
+        "content": "프론트 엔지니어 채용합니다",
+        "position": "프론트 엔지니어",
+    }
+    response = client.patch(data=data, path=url, content_type="application/json")
+    assert response.status_code == 200

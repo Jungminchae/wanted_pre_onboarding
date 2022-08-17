@@ -10,6 +10,7 @@ class JobPostSerializer(serializers.ModelSerializer):
             "title",
             "content",
             "compensation",
+            "position",
             "skill",
             "user",
             "company",
@@ -22,3 +23,23 @@ class JobPostUpdateSerializer(JobPostSerializer):
             if attrs["company"] != self.instance.company:
                 raise serializers.ValidationError("채용공고의 회사 ID를 변경할 수 없음")
         return super().validate(attrs)
+
+
+class JobPostReadSerializer(JobPostSerializer):
+    class Meta:
+        model = JobPost
+        fields = (
+            "id" "company",
+            "title",
+            "content",
+            "compensation",
+            "position",
+            "skill",
+        )
+
+    def to_representation(self, instance):
+        representation = super(JobPostReadSerializer, self).to_representation(instance)
+        representation["company"] = instance.company.name
+        representation["country"] = instance.company.country
+        representation["region"] = instance.company.region
+        return representation

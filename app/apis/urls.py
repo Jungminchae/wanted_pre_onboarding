@@ -3,12 +3,14 @@ from apis.views.jobpost_views import (
     JobPostRegistrationView,
     JobPostUpdateView,
     JobPostDeleteView,
+    JobPostReadView,
 )
 
 
 app_name = "apis"
 
 urlpatterns = [
+    path("", JobPostReadView.as_view(), name="jobpost_read"),
     path(
         "registration/", JobPostRegistrationView.as_view(), name="jobpost_registration"
     ),

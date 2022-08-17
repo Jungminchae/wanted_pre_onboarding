@@ -1,4 +1,9 @@
-from rest_framework.generics import CreateAPIView, UpdateAPIView, DestroyAPIView
+from rest_framework.generics import (
+    CreateAPIView,
+    UpdateAPIView,
+    DestroyAPIView,
+    ListAPIView,
+)
 from apis.models import JobPost
 from apis.serializers.jobpost_serializers import (
     JobPostSerializer,
@@ -30,4 +35,13 @@ class JobPostDeleteView(DestroyAPIView):
     채용공고 삭제
     """
 
+    queryset = JobPost.objects.all()
+
+
+class JobPostReadView(ListAPIView):
+    """
+    채용공고 목록보기
+    """
+
+    serializer_class = JobPostSerializer
     queryset = JobPost.objects.all()

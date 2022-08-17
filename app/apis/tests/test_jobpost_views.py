@@ -73,3 +73,27 @@ def test_jobpost_read_success(client):
     response = client.get(path=url)
     assert response.status_code == 200
     assert len(response.json()) == 20
+
+
+def test_jobpost_search_success(client):
+    """
+    채용공고 검색 보기 테스트 - 성공
+    """
+    mixer.cycle(10).blend(JobPost, title="django")
+    mixer.cycle(10).blend(JobPost, title="원티드")
+    url = reverse("apis:jobpost_read") + "?search=django"
+    response = client.get(path=url)
+    assert response.status_code == 200
+    assert len(response.json()) == 10
+
+
+def test_jobpost_search_with_no_result(client):
+    """
+    채용공고 검색 보기 테스트, 결과 없음 - 성공
+    """
+    mixer.cycle(10).blend(JobPost, title="django")
+    mixer.cycle(10).blend(JobPost, title="원티드")
+    url = reverse("apis:jobpost_read") + "?search=React"
+    response = client.get(path=url)
+    assert response.status_code == 200
+    assert len(response.json()) == 0

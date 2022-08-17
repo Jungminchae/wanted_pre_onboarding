@@ -4,6 +4,7 @@ from rest_framework.generics import (
     DestroyAPIView,
     ListAPIView,
 )
+from rest_framework.filters import SearchFilter
 from apis.models import JobPost
 from apis.serializers.jobpost_serializers import (
     JobPostSerializer,
@@ -45,3 +46,5 @@ class JobPostReadView(ListAPIView):
 
     serializer_class = JobPostSerializer
     queryset = JobPost.objects.all()
+    filter_backends = [SearchFilter]
+    search_fields = ("title", "content", "position", "skill")

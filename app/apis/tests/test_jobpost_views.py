@@ -97,3 +97,12 @@ def test_jobpost_search_with_no_result(client):
     response = client.get(path=url)
     assert response.status_code == 200
     assert len(response.json()) == 0
+
+
+def test_jobpost_retrieve_success(client, sample_jobpost):
+    """
+    채용공고 상세보기 테스트 - 성공
+    """
+    url = reverse("apis:jobpost_retrieve", kwargs={"pk": sample_jobpost.id})
+    response = client.get(path=url)
+    assert response.status_code == 200

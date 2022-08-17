@@ -1,5 +1,7 @@
 import pytest
 from django.urls import reverse
+from mixer.backend.django import mixer
+from apis.models import JobPost
 
 pytestmark = pytest.mark.django_db
 
@@ -60,3 +62,14 @@ def test_jobpost_delete_success(client, sample_jobpost):
     url = reverse("apis:jobpost_delete", kwargs={"pk": sample_jobpost.id})
     response = client.delete(path=url)
     assert response.status_code == 204
+
+
+def test_jobpost_read_success(client):
+    """
+    채용공고 목록 보기 테스트 - 성공
+    """
+    mixer.cycle(20).blend(JobPost)
+    url = reverse("apis:jobpost_read")
+    response = client.get(path=url)
+    assert response.status_code == 200
+    assert len(response.json()) == 20

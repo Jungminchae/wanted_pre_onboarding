@@ -1,3 +1,4 @@
+from django.db.models import Q
 from rest_framework import serializers
 from apis.models import JobPost
 
@@ -29,7 +30,8 @@ class JobPostReadSerializer(JobPostSerializer):
     class Meta:
         model = JobPost
         fields = (
-            "id" "company",
+            "id",
+            "company",
             "title",
             "content",
             "compensation",
@@ -42,4 +44,16 @@ class JobPostReadSerializer(JobPostSerializer):
         representation["company"] = instance.company.name
         representation["country"] = instance.company.country
         representation["region"] = instance.company.region
+        return representation
+
+
+class JobPostRetrieveSerializer(JobPostReadSerializer):
+    def to_representation(self, instance):
+        other_posts = JobPost.objects.values("id").filter(
+            Q(company=instance.company) & ~Q(id=instance.id)
+        )
+        representation = super(JobPostRetrieveSerializer, self).to_representation(
+            instance
+        )
+        representation["other_posts"] = other_posts
         return representation

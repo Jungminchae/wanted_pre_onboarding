@@ -51,3 +51,12 @@ def test_jobpost_update_fail_when_fix_company_id(client, sample_jobpost):
     }
     response = client.patch(data=data, path=url, content_type="application/json")
     assert response.status_code == 400
+
+
+def test_jobpost_delete_success(client, sample_jobpost):
+    """
+    채용공고 삭제 테스트 - 성공
+    """
+    url = reverse("apis:jobpost_delete", kwargs={"pk": sample_jobpost.id})
+    response = client.delete(path=url)
+    assert response.status_code == 204

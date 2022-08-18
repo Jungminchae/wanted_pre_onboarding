@@ -55,5 +55,5 @@ class JobPostRetrieveSerializer(JobPostReadSerializer):
         representation = super(JobPostRetrieveSerializer, self).to_representation(
             instance
         )
-        representation["other_posts"] = other_posts
+        representation["other_posts"] = [i["id"] for i in other_posts]
         return representation

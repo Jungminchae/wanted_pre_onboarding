@@ -89,3 +89,6 @@ class ApplyList(BaseModel):
 
     class Meta:
         db_table = "apply_lists"
+        constraints = [
+            models.UniqueConstraint(fields=["user", "job_post"], name="user_apply")
+        ]

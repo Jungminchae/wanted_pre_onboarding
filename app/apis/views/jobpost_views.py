@@ -11,6 +11,7 @@ from apis.serializers.jobpost_serializers import (
     JobPostUpdateSerializer,
     JobPostRetrieveSerializer,
 )
+from apis.permissions import IsCompanyUser
 
 
 class JobPostRegistrationView(CreateAPIView):
@@ -20,6 +21,7 @@ class JobPostRegistrationView(CreateAPIView):
 
     serializer_class = JobPostSerializer
     queryset = JobPost.objects.all()
+    permission_classes = [IsCompanyUser]
 
 
 class JobPostUpdateView(UpdateAPIView):
@@ -30,11 +32,12 @@ class JobPostUpdateView(UpdateAPIView):
 
     serializer_class = JobPostUpdateSerializer
     queryset = JobPost.objects.all()
+    permission_classes = [IsCompanyUser]
 
 
 class JobPostRetrieveDeleteView(RetrieveDestroyAPIView):
     """
-    채용공고 삭제
+    채용공고 상세 조회 및 삭제
     """
 
     serializer_class = JobPostRetrieveSerializer

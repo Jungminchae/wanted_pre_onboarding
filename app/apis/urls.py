@@ -5,7 +5,7 @@ from apis.views.jobpost_views import (
     JobPostRetrieveDeleteView,
     JobPostReadView,
 )
-from apis.views.apply_views import ApplyView
+from apis.views.apply_views import ApplyView, ApplyDeleteView
 
 
 app_name = "apis"
@@ -21,4 +21,5 @@ urlpatterns = [
     ),
     path("<int:pk>/", JobPostRetrieveDeleteView.as_view(), name="jobpost_retrieve"),
     path("apply/", ApplyView.as_view(), name="job_apply"),
+    path("apply/<int:pk>/", ApplyDeleteView.as_view(), name="job_apply_delete"),
 ]

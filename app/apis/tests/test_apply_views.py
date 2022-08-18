@@ -8,6 +8,9 @@ pytestmark = pytest.mark.django_db
 
 
 def test_apply_jobpost_success(client, sample_user, sample_jobpost):
+    """
+    채용공고 지원 테스트 - 성공
+    """
     url = reverse("apis:job_apply")
     user_id = sample_user.id
     jobpost_id = sample_jobpost.id
@@ -18,6 +21,9 @@ def test_apply_jobpost_success(client, sample_user, sample_jobpost):
 
 
 def test_apply_jobpost_fail_when_apply_twice(client, sample_user, sample_jobpost):
+    """
+    채용공고 지원 테스트 - 실패 (이미 지원한 채용공고에 지원할 수 없음)
+    """
     url = reverse("apis:job_apply")
     user_id = sample_user.id
     jobpost_id = sample_jobpost.id
@@ -33,6 +39,9 @@ def test_apply_jobpost_fail_when_apply_twice(client, sample_user, sample_jobpost
 def test_apply_jobpost_success_when_apply_other_post(
     client, sample_user, sample_jobpost
 ):
+    """
+    채용공고 지원 테스트 - 성공 (다른 채용공고에 지원할 수 있음)
+    """
     jobpost_2 = mixer.blend(JobPost)
     url = reverse("apis:job_apply")
     user_id = sample_user.id

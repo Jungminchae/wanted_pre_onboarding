@@ -1,7 +1,7 @@
 import pytest
 from django.urls import reverse
 from mixer.backend.django import mixer
-from apis.models import JobPost
+from apis.models import JobPost, Apply
 
 
 pytestmark = pytest.mark.django_db
@@ -55,3 +55,13 @@ def test_apply_jobpost_success_when_apply_other_post(
 
     assert response_1.status_code == 201
     assert response_2.status_code == 201
+
+
+def test_cancel_apply_jobpost_success(client, sample_user, sample_jobpost):
+    """
+    채용공고 지원 취소 테스트 - 성공
+    """
+    sample_apply = mixer.blend(Apply, user=sample_user, job_post=sample_jobpost)
+    url = reverse("apis:job_apply_delete", kwargs={"pk": sample_apply.id})
+    response = client.delete(path=url)
+    assert response.status_code == 204

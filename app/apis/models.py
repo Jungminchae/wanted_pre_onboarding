@@ -75,7 +75,7 @@ class JobPost(BaseModel):
         db_table = "job_posts"
 
 
-class ApplyList(BaseModel):
+class Apply(BaseModel):
     """
     지원내역 모델
     :id - 지원내역 id, 지원내역의 특성상 매우 많은 수로 등록될 수 있어 BigAutoField로 설정

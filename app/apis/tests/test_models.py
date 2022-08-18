@@ -1,5 +1,5 @@
 import pytest
-from apis.models import User, Company, JobPost, ApplyList
+from apis.models import User, Company, JobPost, Apply
 
 
 pytestmark = pytest.mark.django_db
@@ -46,10 +46,10 @@ def test_jobpost_model_success(sample_user, sample_company):
     assert jobpost.user == sample_user
 
 
-def test_applylist_model_success(sample_user, sample_jobpost):
+def test_apply_model_success(sample_user, sample_jobpost):
     """
     지원 내역 모델 테스트 - 성공
     """
-    applylist = ApplyList.objects.create(user=sample_user, job_post=sample_jobpost)
-    assert applylist.user == sample_user
-    assert applylist.job_post == sample_jobpost
+    apply = Apply.objects.create(user=sample_user, job_post=sample_jobpost)
+    assert apply.user == sample_user
+    assert apply.job_post == sample_jobpost

@@ -11,7 +11,7 @@ from apis.serializers.jobpost_serializers import (
     JobPostUpdateSerializer,
     JobPostRetrieveSerializer,
 )
-from apis.permissions import IsCompanyUser
+from apis.permissions import IsCompanyUser, IsOwner
 
 
 class JobPostRegistrationView(CreateAPIView):
@@ -32,7 +32,7 @@ class JobPostUpdateView(UpdateAPIView):
 
     serializer_class = JobPostUpdateSerializer
     queryset = JobPost.objects.all()
-    permission_classes = [IsCompanyUser]
+    permission_classes = [IsCompanyUser, IsOwner]
 
 
 class JobPostRetrieveDeleteView(RetrieveDestroyAPIView):

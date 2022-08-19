@@ -12,4 +12,9 @@ class IsCompanyUser(BasePermission):
 
 
 class IsOwner(BasePermission):
-    ...
+    def has_object_permission(self, request, view, obj):
+        user_id = request.data["user"]
+        user = User.objects.filter(id=user_id)
+        if user.exists():
+            return user.first().id == obj.user.id
+        return False

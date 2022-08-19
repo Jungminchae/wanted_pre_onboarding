@@ -2,7 +2,8 @@ from rest_framework.generics import (
     CreateAPIView,
     UpdateAPIView,
     ListAPIView,
-    RetrieveDestroyAPIView,
+    RetrieveAPIView,
+    DestroyAPIView,
 )
 from rest_framework.filters import SearchFilter
 from apis.models import JobPost
@@ -35,12 +36,20 @@ class JobPostUpdateView(UpdateAPIView):
     permission_classes = [IsCompanyUser, IsOwner]
 
 
-class JobPostRetrieveDeleteView(RetrieveDestroyAPIView):
+class JobPostRetrieveView(RetrieveAPIView):
     """
-    채용공고 상세 조회 및 삭제
+    채용공고 상세 조회
     """
 
     serializer_class = JobPostRetrieveSerializer
+    queryset = JobPost.objects.all()
+
+
+class JobPostDeleteView(DestroyAPIView):
+    """
+    채용공고 삭제
+    """
+
     queryset = JobPost.objects.all()
 
 

@@ -29,7 +29,7 @@ def sample_company():
 @pytest.fixture
 def sample_jobpost():
     company = mixer.blend(Company)
-    user = mixer.blend(User)
+    user = mixer.blend(User, is_company=True)
     return JobPost.objects.create(
         title="백엔드 엔지니어 채용공고",
         content="백엔드 엔지니어 채용합니다",

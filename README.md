@@ -45,6 +45,9 @@
 ## 기타
 -   pre-commit을 이용하여 코드 스타일을 flake8과 black을 따르게 함.  
 -   pytest를 이용하여 간단한 unittest 구현  
+     <img width="380" alt="스크린샷 2022-08-21 오후 11 50 37" src="https://user-images.githubusercontent.com/60789129/185797004-0ce949d5-5a4f-4c90-a82c-23ccf2a782b7.png">
+
+
 -   컨테이너 기반의 개발을 진행. 아래 명령어로 test를 진행할 수 있음.  
 
 ```shell

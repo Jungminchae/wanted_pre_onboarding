@@ -33,7 +33,6 @@ class JobPostReadSerializer(JobPostSerializer):
             "id",
             "company",
             "title",
-            "content",
             "compensation",
             "position",
             "skill",
@@ -48,6 +47,9 @@ class JobPostReadSerializer(JobPostSerializer):
 
 
 class JobPostRetrieveSerializer(JobPostReadSerializer):
+    class Meta(JobPostReadSerializer.Meta):
+        fields = JobPostReadSerializer.Meta.fields + ("content",)
+
     def to_representation(self, instance):
         other_posts = JobPost.objects.values("id").filter(
             Q(company=instance.company) & ~Q(id=instance.id)
